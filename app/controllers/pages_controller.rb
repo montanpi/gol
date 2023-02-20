@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   end
 
   def update_counter
-    current_user.counter += 1
+    current_user.matrix += 'x'
     current_user.save
 
     # redirect_to root_path
@@ -18,7 +18,7 @@ class PagesController < ApplicationController
       turbo_stream.replace(
         "counter",
         partial: "pages/counter",
-        locals: { counter: current_user.counter }
+        locals: { counter: current_user.matrix }
       )
   end
 end
