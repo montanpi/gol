@@ -5,26 +5,3 @@
 
 <%= link_to 'home', root_path, id: 'home' %>
 <%= button_to "sign out", destroy_user_session_path, method: :delete %>
-
-<script>
-  document.getElementById("start-sse").addEventListener("click", (e) => {
-    e.preventDefault();
-    document.getElementById("start-sse").disabled = true
-    stream = new EventSource("/sse");
-    stream.addEventListener("update-event", (event) => {
-      const { matrix } = JSON.parse(event.data);
-      document.getElementById("table").innerHTML = matrix;
-    });
-  });
-  document.getElementById("stop-sse").addEventListener("click", (e) => {
-    e.preventDefault();
-    document.getElementById("start-sse").disabled = false
-    stream.close();
-  });
-  document.getElementById("home").addEventListener("click", () => {
-    document.getElementById("start-sse").disabled = false
-    stream && stream.close();
-  });
-  // stream will not be released if using browser back button
-  // https://github.com/turbolinks/turbolinks/issues/264
-</script>
