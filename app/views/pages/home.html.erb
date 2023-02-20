@@ -1,3 +1,18 @@
 <%= render "pages/matrix", matrix: current_user.matrix %>
 
-<%= link_to "start", update_matrix_path %>
+<%= button_to "start", update_matrix_path, method: :get, id: "start" %>
+<button id="stop">stop</button>
+
+<script>
+  let interval = null;
+  const startLink = document.getElementById('start')
+  startLink.addEventListener('click', () => {
+    clearInterval(interval);
+    interval = setInterval(() => {
+        startLink.click()
+    }, 500);
+  });
+  document.getElementById('stop').addEventListener('click', function() {
+    clearInterval(interval);
+  });
+</script>
