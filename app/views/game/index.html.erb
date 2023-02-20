@@ -1,9 +1,5 @@
 <%= render "game/matrix", matrix: current_user.matrix %>
 
-<%= button_to "start", update_matrix_path, method: :get, id: "start" %>
-<%= button_to "hidden", update_matrix_path, method: :get, id: "hidden" %>
-<button id="stop">stop</button>
-
 <%= button_to "stream start", start_sse_path, id: "start-sse" %>
 <%= button_to "stream stop", stop_sse_path, id: "stop-sse" %>
 
@@ -11,18 +7,24 @@
 <%= button_to "sign out", destroy_user_session_path, method: :delete %>
 
 <script>
-    const startLink = document.getElementById("start-sse");
-    const stopLink = document.getElementById("stop-sse");
-    let source;
-    startLink.addEventListener("click", function (e) {
-      e.preventDefault();
-      source = new EventSource("/sse");
-      source.addEventListener("update-event", function (event) {
-        console.log(JSON.parse(event.data));
-      });
+  document.getElementById("start-sse").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("start-sse").disabled = true
+    stream = new EventSource("/sse");
+    stream.addEventListener("update-event", (event) => {
+      const { matrix } = JSON.parse(event.data);
+      document.getElementById("table").innerHTML = matrix;
     });
-    stopLink.addEventListener("click", function (e) {
-      e.preventDefault();
-      source.close();
-    });
+  });
+  document.getElementById("stop-sse").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("start-sse").disabled = false
+    stream.close();
+  });
+  document.getElementById("home").addEventListener("click", () => {
+    document.getElementById("start-sse").disabled = false
+    stream && stream.close();
+  });
+  // stream will not be released if using browser back button
+  // https://github.com/turbolinks/turbolinks/issues/264
 </script>

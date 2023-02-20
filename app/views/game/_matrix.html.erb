@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "matrix" do %>
-    <table>
+    <table id="table">
     <% matrix.split("\n").each do |row| %>
         <tr>
         <% row.split('').each do |cell| %>
