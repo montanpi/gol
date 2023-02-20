@@ -1,5 +1,5 @@
-<%= turbo_frame_tag "matrix" do %>
-    <table id="table" data-controller="game">
+<%= turbo_frame_tag "matrix", class: "block py-4" do %>
+    <table id="table" class="mx-auto" data-controller="game">
     <% matrix.split("\n").each do |row| %>
         <tr>
         <% row.split('').each do |cell| %>
