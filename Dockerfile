@@ -5,7 +5,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 RUN rails assets:precompile
-RUN rails db:drop db:create db:migrate db:seed
+RUN rails db:drop db:create
+RUN rails db:migrate RAILS_ENV=development
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
  
