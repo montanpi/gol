@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "matrix" do %>
+    <table>
+    <% matrix.split("\n").each do |row| %>
+        <tr>
+        <% row.split('').each do |cell| %>
+            <td><%= cell == '*' ? '◾️' : '◽️' %></td>
+        <% end %>
+        </tr>
+    <% end %>
+    </table>
+
+<% end %>

@@ -1,5 +1,3 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<%= render "pages/matrix", matrix: current_user.matrix %>
 
-<%= link_to "Update Counter", update_counter_path %>
-<%= render "pages/counter", counter: current_user.matrix %>
+<%= link_to "start", update_matrix_path %>
