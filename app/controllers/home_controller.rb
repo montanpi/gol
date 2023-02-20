@@ -18,8 +18,8 @@ class HomeController < ApplicationController
 
   def validate_string(str)
     lines = str.split("\n")
-    return false unless lines[0] =~ /^Generation \d:$/
-    return false unless lines[1] =~ /^(\d) (\d)$/
+    return false unless lines[0] =~ /^Generation \d+:$/
+    return false unless lines[1] =~ /^(\d+) (\d+)$/
 
     rows = ::Regexp.last_match(1).to_i
     cols = ::Regexp.last_match(2).to_i
