@@ -7,18 +7,33 @@ class SseController < ApplicationController
     sse = SSE.new(response.stream, retry: 300, event: 'open')
     matrix = current_user.matrix
     loop do
-      p 'slkdfjsl;kdfjsl;adkfjsl;adkfjlsad;kfj;lsadkfj;lasdkfj;asldkfjsd;lkfjs;lkfj;lsdjf'
       matrix = game_of_life(matrix)
-      sse.write({ matrix: }, event: 'update-event')
+      matrix_html = build_html(matrix)
+      sse.write({ matrix: matrix_html }, event: 'update-event')
       sleep 0.5
     end
   rescue ActionController::Live::ClientDisconnected
+    current_user.matrix = matrix
+    current_user.save
     sse.close
   ensure
     sse.close
   end
 
   def stop; end
+
+  def build_html(str)
+    rows = str.split("\n")
+    table_html = '<table>'
+    rows.each do |row|
+      table_html += '<tr>'
+      row.chars.each do |char|
+        table_html += "<td>#{char == '*' ? '◾️' : '◽️'}</td>"
+      end
+      table_html += '</tr>'
+    end
+    table_html += '</table>'
+  end
 
   def game_of_life(input)
     matrix = input.split("\n").map { |row| row.chars }

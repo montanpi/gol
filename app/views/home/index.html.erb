@@ -1,6 +1,4 @@
 <%= form_tag '/home/upload', :multipart => true do %>
    <%= file_field_tag "file" %>
-   <%= submit_tag %>
+   <%= submit_tag "upload" %>
 <% end %>
-
-<%= link_to 'game', game_path %>
