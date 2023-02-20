@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  get 'game', to: "game#index", as: "game"
 
-  get "update_matrix", to: "pages#update_matrix", as: "update_matrix"
+  get "game/update_matrix", to: "game#update_matrix", as: "update_matrix"
 
   root 'pages#home'
   devise_for :users
