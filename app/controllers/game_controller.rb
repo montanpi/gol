@@ -1,7 +1,5 @@
 class GameController < ApplicationController
-
-  def index
-  end
+  def index; end
 
   def update_matrix
     current_user.matrix = game_of_life(current_user.matrix)
@@ -10,16 +8,16 @@ class GameController < ApplicationController
   end
 
   private
+
   def update_matrix_text
     render turbo_stream:
       turbo_stream.replace(
-        "matrix",
-        partial: "game/matrix",
+        'matrix',
+        partial: 'game/matrix',
         locals: { matrix: current_user.matrix }
       )
   end
 
-  private
   def game_of_life(input)
     matrix = input.split("\n").map { |row| row.chars }
     rows = matrix.length
@@ -29,13 +27,13 @@ class GameController < ApplicationController
       (0...cols).each do |col|
         cell = matrix[row][col]
         live_neighbors = count_live_neighbors(matrix, row, col)
-        if cell == "*" && (live_neighbors == 2 || live_neighbors == 3)
-          output[row][col] = "*"
-        elsif cell == "." && live_neighbors == 3
-          output[row][col] = "*"
-        else
-          output[row][col] = "."
-        end
+        output[row][col] = if cell == '*' && [2, 3].include?(live_neighbors)
+                             '*'
+                           elsif cell == '.' && live_neighbors == 3
+                             '*'
+                           else
+                             '.'
+                           end
       end
     end
     output.map { |row| row.join }.join("\n")
@@ -53,12 +51,10 @@ class GameController < ApplicationController
     offsets.each do |offset|
       neighbor_row = row + offset[0]
       neighbor_col = col + offset[1]
-      if neighbor_row >= 0 && neighbor_row < rows && neighbor_col >= 0 && neighbor_col < cols
-        if matrix[neighbor_row][neighbor_col] == "*"
-          live_count += 1
-        end
-      end
+      next unless neighbor_row >= 0 && neighbor_row < rows && neighbor_col >= 0 && neighbor_col < cols
+
+      live_count += 1 if matrix[neighbor_row][neighbor_col] == '*'
     end
-    return live_count
+    live_count
   end
 end
