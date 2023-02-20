@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "matrix", class: "block py-4" do %>
+<%= turbo_frame_tag "matrix", class: "flex overflow-auto md:py-4" do %>
     <table id="table" class="mx-auto" data-controller="game">
     <% matrix.split("\n").each do |row| %>
         <tr>

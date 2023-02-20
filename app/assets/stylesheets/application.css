@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+/* style users/sign_in */
+h2 {
+    display: none;
+}
+
+.actions {
+    margin: 1rem 0;
+}
+
+.actions input {
+    cursor: pointer;
+}
