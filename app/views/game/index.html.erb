@@ -4,7 +4,7 @@
 <%= button_to "hidden", update_matrix_path, method: :get, id: "hidden" %>
 <button id="stop">stop</button>
 
-<%= link_to 'home', root_path %>
+<%= link_to 'home', root_path, id: 'home' %>
 <%= button_to "sign out", destroy_user_session_path, method: :delete %>
 
 <script>
@@ -17,6 +17,9 @@ document.addEventListener("turbo:load", function() {
     }, 500);
   });
   document.getElementById('stop').addEventListener('click', function() {
+    clearInterval(interval);
+  });
+  document.getElementById('home').addEventListener('click', function() {
     clearInterval(interval);
   });
 });
