@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "matrix" do %>
-    <table id="table">
+    <table id="table" data-controller="game">
     <% matrix.split("\n").each do |row| %>
         <tr>
         <% row.split('').each do |cell| %>
@@ -8,5 +8,4 @@
         </tr>
     <% end %>
     </table>
-
 <% end %>
