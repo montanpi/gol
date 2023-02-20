@@ -1,6 +1,15 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  Rails.application.configure do
+    config.hosts = [
+      IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+      IPAddr.new("::/0"),      # All IPv6 addresses.
+      "localhost",              # The localhost reserved domain.
+      "gol.onrender.com"
+    ]
+    # other config settings...
+  end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
