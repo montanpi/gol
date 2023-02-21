@@ -1,6 +1,13 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"),
+    IPAddr.new("::/0"),
+    "localhost",
+    "gol.onrender.com",
+    "gol.herokuapp.com"
+  ]
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
