@@ -3,6 +3,9 @@ class HomeController < ApplicationController
 
   def upload
     uploaded_file = params[:file]
+    if uploaded_file == nil
+      return
+    end
     str = uploaded_file.read
     if validate_string(str)
       matrix = str.split("\n")[2..-1]
